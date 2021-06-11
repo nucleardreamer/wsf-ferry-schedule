@@ -1,0 +1,14 @@
+version: '2.1'
+volumes:
+    data:
+services:
+  wsf-ferry-schedule:
+    build: .
+    restart: always
+    network_mode: host
+    privileged: true
+    ports:
+      - 80:80
+    volumes:
+      - 'data:/data/'
+    shm_size: '2gb'
