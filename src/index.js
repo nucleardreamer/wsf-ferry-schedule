@@ -1,10 +1,9 @@
 const { app, BrowserWindow, screen } = require('electron')
 const { join } = require('path')
 const express = require('express')
-const stylus = require('express-stylus')
-const nib = require('nib')
 const server = express()
-const port = process.env.NODE_ENV !== 'production' ? 8080 : 80
+const inDev = process.env.NODE_ENV !== 'production'
+const port = process.env.PORT || 8080
 
 function createWindow () {
 
@@ -15,13 +14,11 @@ function createWindow () {
     height,
     autoHideMenuBar: true,
     // kiosk: true,
-    backgroundColor: '#ffffff',
-    webPreferences: {}
+    backgroundColor: '#ffffff'
   })
 
   mainWindow.loadURL(`http://localhost:${port}/`)
-
-  mainWindow.webContents.openDevTools()
+  if (inDev) mainWindow.webContents.openDevTools()
 }
 
 app.on('window-all-closed', () => app.quit())
@@ -32,15 +29,11 @@ server.use('/public', express.static(public))
 // we use pug as the view engine
 server.set('view engine', 'pug')
 server.set('views', public)
-// setup css
-server.use(stylus({
-  src: public,
-  use: [nib()],
-  import: ['nib']
-}))
 
 server.get('/', (req, res) => {
-  res.render('index')
+  res.render('index', {
+    routeID: process.env.ROUTE_ID || 14
+  })
 })
 
 const wsf = require(join(__dirname, 'wsf'))

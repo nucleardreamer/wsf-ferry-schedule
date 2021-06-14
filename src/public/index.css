@@ -1,3 +1,118 @@
 body {
-  background-color: #008000;
+  font-family: 'Baloo Tammudu 2';
+  background-color: #fff;
+  color: rgb(42, 42, 42);
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  position: relative;
+}
+
+.loading {
+  position: absolute;
+  top: 2vh;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 5vh;
+}
+
+.routes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.routes .title {
+  font-style: oblique;
+  font-size: 4vh;
+}
+
+.routes > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  flex-direction: column;
+  text-align: center;
+}
+
+.times {
+  border-top: 1px solid #cac9c9;
+  margin-top: 2vh;
+  padding-top: 2vh;
+  width: 70%
+}
+
+.times .time {
+  font-size: 5vh;
+  margin: 1.5vh 0 0 0;
+  opacity: .5;
+}
+
+.times .time:nth-child(1){
+  opacity: 1;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.hide {
+  display: none !important;
+}
+
+.clock {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 7vh;
+}
+
+
+
+/* waves */
+
+.waves {
+  position:relative;
+  width: 100%;
+  height: 40%;
+  transform: rotate(180deg);
+}
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 16s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 23s;
+}
+
+@keyframes move-forever {
+  0% {
+   transform: translate3d(-90px,0,0);
+  }
+  100% { 
+    transform: translate3d(85px,0,0);
+  }
 }

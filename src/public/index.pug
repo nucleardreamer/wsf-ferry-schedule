@@ -1,6 +1,40 @@
 html
   head
-    link(rel='stylesheet', href='public/index.css')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
+    link(rel='preconnect', href='https://fonts.gstatic.com')
+    link(href='https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@400;600&display=swap', rel='stylesheet')
+    link(rel='stylesheet', href='public/index.css')
+    script.
+      var routeID = !{JSON.stringify(routeID)};
   body
-    .big This is my application
+    .header
+      div
+        svg.waves(xmlns="http://www.w3.org/2000/svg", xmlns:xlink="http://www.w3.org/1999/xlink", viewBox="0 24 150 28" preserveAspectRatio="none", shape-rendering="auto")
+          defs
+            path(id="gentle-wave", d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z")
+          g.parallax
+            use(xlink:href="#gentle-wave", x="48", y="2", fill="rgba(1,115,89,0.7")
+            use(xlink:href="#gentle-wave", x="48", y="4", fill="rgba(1,115,89,0.5)")
+            use(xlink:href="#gentle-wave", x="48", y="6", fill="rgba(1,115,89,0.25)")
+            use(xlink:href="#gentle-wave", x="48", y="9", fill="rgba(1,115,89,1)")
+      .clock 12:00am
+    .content
+      .loading Fetching current schedule
+      .routes.hide
+        .route1 
+          .title Leaving&nbsp;
+            span
+          .times
+            .time.bold.first 12:05pm
+            .time 1:15pm
+            .time 2:35pm
+        .route2
+          .title Leaving&nbsp;
+            span
+          .times
+            .time.bold.first 12:05pm
+            .time &nbsp;
+            .time 2:35pm
+    script(src='public/vendor/jquery-3.6.0.min.js')
+    script(src='public/vendor/moment.min.js')
+    script(src='public/index.js')
