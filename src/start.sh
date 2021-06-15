@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# set the hostname to wsf
+curl -X PATCH --header "Content-Type:application/json" --data '{"network": {"hostname": "wsf"}}' "$BALENA_SUPERVISOR_ADDRESS/v1/device/host-config?apikey=$BALENA_SUPERVISOR_API_KEY"
+
 # Run balena base image entrypoint script
 /usr/bin/entry.sh echo "Running balena base image entrypoint..."
 

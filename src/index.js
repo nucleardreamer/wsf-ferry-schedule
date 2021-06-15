@@ -5,6 +5,9 @@ const server = express()
 const inDev = process.env.NODE_ENV !== 'production'
 const port = process.env.PORT || 8080
 
+const departingID = process.env.DEPARTING_ID || 22
+const arrivingID = process.env.ARRIVING_ID || 9
+
 function createWindow () {
 
   const { width, height } = screen.getPrimaryDisplay().workArea
@@ -32,30 +35,25 @@ server.set('views', public)
 
 server.get('/', (req, res) => {
   res.render('index', {
-    routeID: process.env.ROUTE_ID || 14
+    departingID, arrivingID
   })
 })
 
 const wsf = require(join(__dirname, 'wsf'))
 
-server.get('/api/routeAndSchedule/:routeId', async (req, res) => {
-  let routeId = req.params.routeId
-  if (!routeId) {
-    return res.error('You must send a route ID')
-  }
-  res.json(await wsf.getRouteAndSchedule(routeId))
+server.get('/api/schedule/:departingID/:arrivingID', async (req, res) => {
+  res.json(await wsf.getSchedule(
+    req.params.departingID,
+    req.params.arrivingID
+  ))
 })
 
-server.get('/api/scheduleToday/:routeId', async (req, res) => {
-  let routeId = req.params.routeId
-  if (!routeId) {
-    return res.error('You must send a route ID')
-  }
-  res.json(await wsf.getScheduleToday(routeId))
+server.get('/api/allRoutes', async (req, res) => {
+  res.json(await wsf.getAllRoutes())
 })
 
-server.get('/api/routes', async (req, res) => {
-  res.json(await wsf.getRoutes())
+server.get('/api/routes/:departingID/:arrivingID', async (req, res) => {
+  res.json(await wsf.getRoutes(req.params.departingID, req.params.arrivingID))
 })
 
 server.get('/api/terminals', async (req, res) => {

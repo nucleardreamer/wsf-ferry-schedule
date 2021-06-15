@@ -12,3 +12,9 @@ services:
     volumes:
       - 'data:/data/'
     shm_size: '2gb'
+    labels:
+      io.balena.features.supervisor-api: 1
+      io.balena.features.balena-api: 1
+    environment:
+      DEPARTING_ID: 9
+      ARRIVING_ID: 22

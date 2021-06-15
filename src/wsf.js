@@ -7,9 +7,9 @@ axios.defaults.params = {
   apiaccesscode: process.env.WSF_API_KEY || 'f68dac82-1e43-4c02-8589-c875a5b9663a'
 }
 
-const getScheduleToday = async function (routeID) {
+const getScheduleToday = async function (departingID, arrivingID) {
   try {
-    let res = await axios.get(`/scheduletoday/${routeID}/true`)
+    let res = await axios.get(`/scheduletoday/${departingID}/${arrivingID}/true`)
     let data = await res.data
     return data
   } catch (err) {
@@ -17,7 +17,7 @@ const getScheduleToday = async function (routeID) {
   }
 }
 
-const getRoutes = async function () {
+const getAllRoutes = async function () {
   try {
     let res = await axios.get(`/routes/${today()}`)
     let data = await res.data
@@ -27,28 +27,25 @@ const getRoutes = async function () {
   }
 }
 
-const getRouteAndSchedule = async function (routeID) {
+const getRoutes = async function (departingID, arrivingID) {
   try {
-    let routeObj = null
-    let routes = await getRoutes()
-    routes.forEach(v => {
-      if (v.RouteID == routeID) routeObj = v
+    let res = await axios.get(`/routes/${today()}/${departingID}/${arrivingID}`)
+    let data = await res.data
+    return data
+  } catch (err) {
+    return err
+  }
+}
+
+const getSchedule = async function (departingID, arrivingID) {
+  try {
+    let schedule = (await getScheduleToday(departingID, arrivingID)).TerminalCombos[0]
+    schedule.Times = _.map(schedule.Times, time => {
+      let parsedDate = parseStupidDate(time.DepartingTime)[1].split('-')[0]
+      time.DepartingTime = moment(Number(parsedDate)).format('h:mma')
+      return time
     })
-
-    let schedules = (await getScheduleToday(routeID)).TerminalCombos
-
-    schedules = _.map(schedules, (terminal => {
-      terminal.Times = _.map(terminal.Times, time => {
-        let parsedDate = parseStupidDate(time.DepartingTime)[1].split('-')[0]
-        time.DepartingTime = moment(Number(parsedDate)).format('h:mma')
-        return time
-      })
-      return terminal
-    }))
-
-    routeObj.Schedules = schedules
-
-    return routeObj
+    return schedule
   } catch (err) {
     return err
   }
@@ -93,7 +90,8 @@ const needCacheFlush = async function () {
 }
 
 function today () {
-  return moment().format('YYYY-MM-DD')
+  let formatted = moment().format('YYYY-MM-DD')
+  return formatted
 }
 
 function parseStupidDate (dateString) {
@@ -101,9 +99,9 @@ function parseStupidDate (dateString) {
 }
 
 module.exports = {
-  getRouteAndSchedule,
-  getScheduleToday,
+  getSchedule,
   getRoutes,
+  getAllRoutes,
   getTerminals,
   getTerminalsAndMates,
   needCacheFlush

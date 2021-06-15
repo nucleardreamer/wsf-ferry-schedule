@@ -10,19 +10,16 @@ body {
   position: relative;
 }
 
-.loading {
-  position: absolute;
-  top: 2vh;
-  width: 100%;
-  text-align: center;
+.loading1,.loading2 {
+  position: relative;
   font-weight: bold;
-  font-size: 5vh;
+  font-size: 3vh;
+  top: 1vh;
 }
 
 .routes {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
   flex-direction: row;
   margin: 0 12vh;
 }

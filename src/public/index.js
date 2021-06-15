@@ -1,35 +1,26 @@
 (function($) {
-
-  var currentRouteAndSchedule = null
-  var routesEl = $('.routes')
-  var loadingEl = $('.loading')
-  var route1 = $('.route1', routesEl)
-  var route2 = $('.route2', routesEl)
-
-  const setScheduleData = schedules => {
-    $('.title span', route1).text(schedules[0].DepartingTerminalName)
-    $('.title span', route2).text(schedules[1].DepartingTerminalName)
-
-    var route1times = schedules[0].Times;
-    $('.times .time:nth-child(1)', route1).text(_.get(route1times[0], 'DepartingTime') || '-')
-    $('.times .time:nth-child(2)', route1).text(_.get(route1times[1], 'DepartingTime') || '-')
-    $('.times .time:nth-child(3)', route1).text(_.get(route1times[2], 'DepartingTime') || '-')
-
-    var route2times = schedules[1].Times;
-    $('.times .time:nth-child(1)', route2).text(_.get(route2times[0], 'DepartingTime') || '-')
-    $('.times .time:nth-child(2)', route2).text(_.get(route2times[1], 'DepartingTime') || '-')
-    $('.times .time:nth-child(3)', route2).text(_.get(route2times[2], 'DepartingTime') || '-')
-
+  const setScheduleData = (schedule, position) => {
+    var routeEl = $(`.route${position}`)
+    $('.title span', routeEl).text(schedule.DepartingTerminalName)
+    
+    var routeTimes = schedule.Times;
+    $('.times .time:nth-child(1)', routeEl).text(_.get(routeTimes[0], 'DepartingTime') || '-')
+    $('.times .time:nth-child(2)', routeEl).text(_.get(routeTimes[1], 'DepartingTime') || '-')
+    $('.times .time:nth-child(3)', routeEl).text(_.get(routeTimes[2], 'DepartingTime') || '-')
   }
 
   const fetchRouteAndSchedule = () => {
-    // routeID is set globally when this page is rendered
-    $.getJSON(`http://localhost:8080/api/routeAndSchedule/${routeID}`, result => {
-      console.log('Fetched schedules:', result)
-      currentRouteAndSchedule = result
-      routesEl.removeClass('hide')
-      loadingEl.addClass('hide')
-      setScheduleData(result.Schedules)
+    $.getJSON(`http://localhost:8080/api/schedule/${departingID}/${arrivingID}`, result => {
+      console.log(`Fetched schedules for ${departingID} to ${arrivingID}:`, result)
+      $('.route1').removeClass('hide')
+      $('.loading1').addClass('hide')
+      setScheduleData(result, 1)
+    })
+    $.getJSON(`http://localhost:8080/api/schedule/${arrivingID}/${departingID}`, result => {
+      console.log(`Fetched schedules for ${arrivingID} to ${departingID}:`, result)
+      $('.route2').removeClass('hide')
+      $('.loading2').addClass('hide')
+      setScheduleData(result, 2)
     })
   }
 
