@@ -19,6 +19,7 @@ data:
   applicationEnvironmentVariables:
     - DEPARTING_ID: 9
     - ARRIVING_ID: 22
+    - WSF_API_KEY: 'f68dac82-1e43-4c02-8589-c875a5b9663a'
   defaultDeviceType: "raspberrypi4-64"
   supportedDeviceTypes:
     - raspberry-pi
