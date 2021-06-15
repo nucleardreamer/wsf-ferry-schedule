@@ -1,5 +1,7 @@
 # Washington State Ferry Schedule
 
+![alt text](https://github.com/nucleardreamer/wsf-ferry-schedule/blob/master/wsf-ui.gif?raw=true "UI gif capture")
+
 TODO: Add all the info
 
 ## Departing and Arriving IDs
