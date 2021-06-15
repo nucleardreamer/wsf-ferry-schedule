@@ -1,6 +1,7 @@
 name: wsf-ferry-schedule
 type: sw.application
 joinable: false
+version: 0.0.1
 description: >-
   A simple way to display ferry schedule times for the Washington State (US) ferry system. Simply plug in a monitor to your device and you are ready!
 assets:
@@ -11,13 +12,14 @@ assets:
   logo:
     type: blob.asset
     data:
-      url: >-
-        https://raw.githubusercontent.com/nucleardreamer/wsf-ferry-schedule/master/logo.png
+      url: "https://raw.githubusercontent.com/nucleardreamer/wsf-ferry-schedule/master/logo.png"
 data:
+  applicationConfigVariables:
+    - RESIN_HOST_CONFIG_gpu_mem: 128
   applicationEnvironmentVariables:
     - DEPARTING_ID: 9
     - ARRIVING_ID: 22
-  defaultDeviceType: intel-nuc
+  defaultDeviceType: "raspberrypi4-64"
   supportedDeviceTypes:
     - raspberry-pi
     - raspberry-pi2
@@ -25,4 +27,3 @@ data:
     - raspberrypi4-64
     - fincm3
     - intel-nuc
-version: 0.0.1
