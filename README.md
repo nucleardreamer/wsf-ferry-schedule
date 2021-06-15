@@ -2,6 +2,8 @@
 
 ![alt text](https://github.com/nucleardreamer/wsf-ferry-schedule/blob/master/wsf-ui.gif?raw=true "UI gif capture")
 
+[![balena deploy button](https://www.balena.io/deploy.svg)](https://dashboard.balena-cloud.com/deploy?repoUrl=https://github.com/nucleardreamer/wsf-ferry-schedule)
+
 TODO: Add all the info
 
 ## Departing and Arriving IDs
