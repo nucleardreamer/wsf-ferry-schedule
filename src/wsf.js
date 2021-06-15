@@ -10,7 +10,6 @@ axios.defaults.params = {
 const getScheduleToday = async function (routeID) {
   try {
     let res = await axios.get(`/scheduletoday/${routeID}/true`)
-    console.log('scheduletoday', res)
     let data = await res.data
     return data
   } catch (err) {
@@ -40,14 +39,10 @@ const getRouteAndSchedule = async function (routeID) {
 
     schedules = _.map(schedules, (terminal => {
       terminal.Times = _.map(terminal.Times, time => {
-        console.log(time.DepartingTime)
         let parsedDate = parseStupidDate(time.DepartingTime)[1].split('-')[0]
-        console.log('parsed', parsedDate)
         time.DepartingTime = moment(Number(parsedDate)).format('h:mma')
-        console.log(time.DepartingTime)
         return time
       })
-      console.log(terminal)
       return terminal
     }))
 
@@ -91,7 +86,6 @@ const needCacheFlush = async function () {
     }
     let needFlush = lastCacheFlushString !== data
     lastCacheFlushString = data
-    console.log('need flush:', data, needFlush)
     return needFlush
   } catch (err) {
     return err

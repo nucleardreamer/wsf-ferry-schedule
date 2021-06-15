@@ -13,7 +13,7 @@ function createWindow () {
     width,
     height,
     autoHideMenuBar: true,
-    // kiosk: true,
+    kiosk: !inDev,
     backgroundColor: '#ffffff'
   })
 
