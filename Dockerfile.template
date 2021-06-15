@@ -12,6 +12,7 @@ RUN install_packages \
     libx11-xcb1 \
     libxss1 \
     libxtst6 \
+    libgles2-mesa \
     mesa-vdpau-drivers \
     xserver-xorg \
     xserver-xorg-legacy \
