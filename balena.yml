@@ -2,6 +2,7 @@ name: wsf-ferry-schedule
 type: sw.application
 description: >-
   A simple way to display ferry schedule times for the Washington State (US) ferry system. Simply plug in a monitor to your device and you are ready!
+joinable: false
 assets:
   repository:
     type: blob.asset
