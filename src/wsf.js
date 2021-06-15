@@ -39,7 +39,11 @@ const getRoutes = async function (departingID, arrivingID) {
 
 const getSchedule = async function (departingID, arrivingID) {
   try {
-    let schedule = (await getScheduleToday(departingID, arrivingID)).TerminalCombos[0]
+    let schedule = await getScheduleToday(departingID, arrivingID)
+    schedule = schedule.TerminalCombos[0]
+    if (schedule === undefined) {
+      throw new Error(`Schedule fetch for ${departingID} ${arrivingID} returned an error`)
+    }
     schedule.Times = _.map(schedule.Times, time => {
       let parsedDate = parseStupidDate(time.DepartingTime)[1].split('-')[0]
       time.DepartingTime = moment(Number(parsedDate)).format('h:mma')
@@ -47,6 +51,7 @@ const getSchedule = async function (departingID, arrivingID) {
     })
     return schedule
   } catch (err) {
+    console.error(err)
     return err
   }
 }

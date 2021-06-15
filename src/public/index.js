@@ -1,7 +1,8 @@
 (function($) {
   const setScheduleData = (schedule, position) => {
     var routeEl = $(`.route${position}`)
-    $('.title span', routeEl).text(schedule.DepartingTerminalName)
+    var routeName = schedule.DepartingTerminalName
+    $('.title', routeEl).text(routeName !== undefined ? `Leaving ${routeName}` : '* Retrying fetch *')
     
     var routeTimes = schedule.Times;
     $('.times .time:nth-child(1)', routeEl).text(_.get(routeTimes[0], 'DepartingTime') || '-')

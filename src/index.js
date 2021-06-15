@@ -42,10 +42,15 @@ server.get('/', (req, res) => {
 const wsf = require(join(__dirname, 'wsf'))
 
 server.get('/api/schedule/:departingID/:arrivingID', async (req, res) => {
-  res.json(await wsf.getSchedule(
-    req.params.departingID,
-    req.params.arrivingID
-  ))
+  try {
+    let schedule = await wsf.getSchedule(
+      req.params.departingID,
+      req.params.arrivingID
+    )
+    res.json(schedule)
+  } catch (err) {
+    res.error(err)
+  }
 })
 
 server.get('/api/allRoutes', async (req, res) => {

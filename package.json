@@ -1,6 +1,6 @@
 {
   "name": "wsf-ferry-schedule",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple way to display ferry times",
   "main": "src/index.js",
   "scripts": {
