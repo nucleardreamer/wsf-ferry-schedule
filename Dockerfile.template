@@ -25,7 +25,7 @@ WORKDIR /opt
 
 # install node dependencies
 COPY ./package.json /opt/package.json
-RUN JOBS=MAX npm install --unsafe-perm --production && npm cache clean --force
+RUN JOBS=MAX npm install --unsafe-perm --production && npm cache clean --force && rm -rf /root/.cache/*
 
 COPY ./src /opt/
 RUN chmod +x /opt/*.sh
