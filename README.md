@@ -31,3 +31,9 @@ To configure the application, you will need to find the ID corresponding to your
 | Southworth | `20` |
 | Tahlequah | `21` |
 | Vashon Island | `22` |
+
+## WSDOT API Key
+
+It is generally a good idea to configure your own API key for pulling schedules. The current default API key will probably get rate limited and you will have errors pulling schedule information. 
+
+All you need to do is head [here](https://www.wsdot.com/traffic/api/), enter your email, and copy + paste your API key to the `WSF_API_KEY` environment variable.
