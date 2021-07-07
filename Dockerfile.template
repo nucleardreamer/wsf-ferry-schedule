@@ -5,6 +5,8 @@ FROM balenalib/%%BALENA_MACHINE_NAME%%-node:${NODEJS_VERSION}-run
 RUN install_packages \
     curl \
     libasound2 \
+    libdrm2 \
+    libgbm1 \
     libgdk-pixbuf2.0-0 \
     libglib2.0-0 \
     libgtk-3-0 \
@@ -13,15 +15,9 @@ RUN install_packages \
     libxss1 \
     libxtst6 \
     libgles2-mesa \
-    mesa-vdpau-drivers \
-    xserver-xorg \
-    xserver-xorg-legacy \
-    xinit \
-    xterm \
-    x11-xserver-utils
+    libxshmfence1
 
 WORKDIR /opt
-
 
 # install node dependencies
 COPY ./package.json /opt/package.json
@@ -47,4 +43,5 @@ RUN usermod -a -G audio,video,tty electron
 
 CMD ["bash", "/opt/start.sh"]
 
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    DISPLAY=:0
