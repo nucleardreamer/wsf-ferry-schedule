@@ -1,7 +1,14 @@
 version: '2.1'
 volumes:
     data:
+    xserver:
 services:
+  xserver:
+    image: balenablocks/xserver
+    restart: always
+    privileged: true
+    volumes:
+      - 'xserver:/tmp/.X11-unix'
   wsf-ferry-schedule:
     build: .
     restart: always
@@ -11,6 +18,7 @@ services:
       - 8080:8080
     volumes:
       - 'data:/data/'
+      - 'xserver:/tmp/.X11-unix'
     shm_size: '2gb'
     labels:
       io.balena.features.supervisor-api: 1
