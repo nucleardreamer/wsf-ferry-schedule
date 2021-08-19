@@ -4,7 +4,7 @@ volumes:
     xserver:
 services:
   xserver:
-    image: nucleardreamer/xserver
+    image: balenablocks/xserver
     restart: always
     privileged: true
     volumes:

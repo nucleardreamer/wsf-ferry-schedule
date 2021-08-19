@@ -15,7 +15,9 @@ RUN install_packages \
     libxss1 \
     libxtst6 \
     libgles2-mesa \
-    libxshmfence1
+    libxshmfence1 \
+    mesa-utils \
+    mesa-utils-extra
 
 WORKDIR /opt
 
@@ -39,7 +41,7 @@ RUN useradd electron -m -s /bin/bash -G root || true && \
 
 # udev rule to set specific permissions 
 RUN echo 'SUBSYSTEM=="vchiq",GROUP="video",MODE="0660"' > /etc/udev/rules.d/10-vchiq-permissions.rules
-RUN usermod -a -G audio,video,tty electron
+RUN usermod -a -G audio,video,tty,render electron
 
 CMD ["bash", "/opt/start.sh"]
 
